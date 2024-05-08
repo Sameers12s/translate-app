@@ -11,7 +11,7 @@ import CopyButton from '../components/CopyButton';
 
 function TranslationPage() {
     const [sourceLanguage, setSourceLanguage] = useState('en');
-    const [targetLanguage, setTargetLanguage] = useState('es');
+    const [targetLanguage, setTargetLanguage] = useState('hi');
     const [inputText, setInputText] = useState('');
     const [translatedText, setTranslatedText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
