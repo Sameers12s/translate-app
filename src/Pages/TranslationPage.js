@@ -3,10 +3,11 @@ import LanguageSelector from '../components/LanguageSelector';
 import InputText from '../components/InputText';
 import OutputBox from '../components/OutputBox';
 import NavBar from '../components/NavBar';
-import logo from '../assetes/logo.png'
+import logo from '../assetes/logo.png';
 import { IconLanguage } from '@tabler/icons-react';
 import InfoBox from '../components/InfoBox';
 import { translateText } from '../Api/translateText';
+import CopyButton from '../components/CopyButton';
 
 function TranslationPage() {
     const [sourceLanguage, setSourceLanguage] = useState('en');
@@ -42,22 +43,22 @@ function TranslationPage() {
 
     const isButtonDisabled = isLoading || !inputText;
 
+    const handleCopy = () => {
+        navigator.clipboard.writeText(translatedText);
+    };
+
     return (
-        <div ><NavBar />
+        <div>
+            <NavBar />
             <div className='flex justify-center items-center w-full'>
                 <img src={logo} alt="Logo" className="w-90 h-80" />
             </div>
 
-            <div className="flex  flex-col max-h-screen min-h-screen container mx-auto px-4 md:px-10 lg:px-40 py-8 lg:py-6 2xl:px-72 rounded shadow-md">
-
-
-
+            <div className="flex flex-col min-h-screen container mx-auto px-4 md:px-10 lg:px-40 py-8 lg:py-6 2xl:px-72 rounded shadow-md">
                 <h1 className="text-3xl font-bold text-center mb-4 text-blue-500">
                     Google Language Translation
                 </h1>
-
                 <InfoBox />
-
                 <div className="flex justify-between my-5">
                     <div className="w-1/4 mr-20">
                         <LanguageSelector
@@ -74,25 +75,21 @@ function TranslationPage() {
                         />
                     </div>
                 </div>
-
                 <div className='my-5'>
                     <InputText inputText={inputText} onInputChange={onInputChange} />
                 </div>
-
-
                 <button
                     onClick={handleTranslate}
                     disabled={isButtonDisabled}
-                    className=" flex justify-center items-center  bg-blue-500 text-white py-2 px-4 rounded shadow hover:bg-blue-600 focus:outline-none focus:bg-blue-700space-x-2 text-xl font-semibold "
+                    className="flex justify-center items-center bg-blue-500 text-white py-2 px-4 rounded shadow hover:bg-blue-600 focus:outline-none focus:bg-blue-700 space-x-2 text-xl font-semibold"
                 >
-                    {isLoading ? 'Translating... ' : 'Translate '}
-                    < IconLanguage stroke={2} size={30} />
+                    {isLoading ? 'Translating...' : 'Translate'}
+                    <IconLanguage stroke={2} size={30} />
                 </button>
-
                 <div className='mt-10 mb-3'>
                     <OutputBox translatedText={translatedText} />
                 </div>
-
+                <CopyButton handleCopy={handleCopy} />
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
             </div>
         </div>
